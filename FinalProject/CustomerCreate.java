@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 public class CustomerCreate {
 	private int IDIncr = 0;
-	
-
 	private ArrayList<Customer> fullCustList = new ArrayList<Customer>(); // List of created customers.
 
 	// default constructor
