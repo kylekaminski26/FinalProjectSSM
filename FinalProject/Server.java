@@ -22,4 +22,10 @@ public class Server {
 		open = true;
 		queue = new PriorityQueue<Customer>();
 	}
+
+	@Override
+	public String toString() {
+		return "Server [ID=" + ID + ", waitTime=" + waitTime + ", ServiceTime=" + ServiceTime + ", busyTime=" + busyTime
+				+ ", open=" + open + ", queue=" + queue + "]";
+	}
 }
