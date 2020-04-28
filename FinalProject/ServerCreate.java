@@ -12,4 +12,9 @@ public class ServerCreate {
 		IDIncr++;
 		fullServList.add(s);
 	}
+	
+	@Override
+	public String toString() {
+		return "TotalServers=" + IDIncr + ", fullServList=" + fullServList;
+	}
 }
