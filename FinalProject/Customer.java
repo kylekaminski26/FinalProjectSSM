@@ -3,33 +3,63 @@ package FinalProject;
 // DO NOT use this class to create customer. Use CustomerCreate()
 
 public class Customer {
-	private int ID; // each ID is unique
-	private String name; // non-unique first name for the customer.
+	private String name; // Unique first name for the customer.
 	private int entryTime;
 	private int waitTime;
 	private int procTime;
+	private int cart; // Number of items in the cart
 
-	// Default constructor. Only called with CustomerCreate() class.
-	public Customer(int IDIncr) {
-		ID = IDIncr; // Will be unique upon each customer creation.
-		name = "";
+	// Only called with CustomerCreate() class.
+	public Customer(String n) {
+		name = n;
 		entryTime = 0;
 		waitTime = 0;
 		procTime = 0;
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getEntryTime() {
+		return entryTime;
+	}
+
+	public void setEntryTime(int entryTime) {
+		this.entryTime = entryTime;
+	}
+
+	public int getWaitTime() {
+		return waitTime;
+	}
+
+	public void setWaitTime(int waitTime) {
+		this.waitTime = waitTime;
+	}
+
+	public int getProcTime() {
+		return procTime;
+	}
+
+	public void setProcTime(int procTime) {
+		this.procTime = procTime;
+	}
 	
-	// Only called with CustomerCreate() class.
-		public Customer(String n, int IDIncr) {
-			ID = IDIncr; // Will be unique upon each customer creation.
-			name = n;
-			entryTime = 0;
-			waitTime = 0;
-			procTime = 0;
-		}
+	public int getCart() {
+		return cart;
+	}
+
+	public void setCart(int cart) {
+		this.cart = cart;
+	}
 
 	@Override
 	public String toString() {
-		return "Customer [ID=" + ID + ", name=" + name + ", entryTime=" + entryTime + ", waitTime=" + waitTime
+		return "Customer [name=" + name + ", entryTime=" + entryTime + ", waitTime=" + waitTime
 				+ ", procTime=" + procTime + "]";
 	}
 }

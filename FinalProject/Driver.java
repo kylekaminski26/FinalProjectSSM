@@ -11,20 +11,22 @@ import java.util.Scanner;
 
 public class Driver {
 	/*
-	 * Balk: A customer can decide to not join a queue in the first place
-	 * Renege: A customer can decide to leave the queue without being served 
-	 * Jockey: A customer can decide to jump to another server if that server opens.
+	 * Balk: A customer can decide to not join a queue in the first place Renege: A
+	 * customer can decide to leave the queue without being served Jockey: A
+	 * customer can decide to jump to another server if that server opens.
 	 */
+	
+	private final int EXPRESS_CHECKOUT_SIZE = 5; // Number of items allowed for express checkout
 
 	public static void main(String[] args) {
 		boolean run = true;
 		Scanner sc = new Scanner(System.in);
-		int choice = sc.nextInt();
-		CustomerCreate custList = new CustomerCreate();
-		// Class for creating customer (DO NOT use Customer() when making new customer).
-		ServerCreate servList = new ServerCreate();
-		// Class for creating server (DO NOT use Server() when making new server).
-		//...Create() classes must be used to properly track unique ID numbers.
+
+		Server<Customer> server1 = new Server<Customer>();
+		Server<Customer> server2 = new Server<Customer>();
+		
+		server1.open();
+		server2.close(); // Start the server closed
 
 		System.out.println("Welcome to the SSM Queue and Server System");
 		System.out.println("Team: Team Geese 2.0");
@@ -43,13 +45,18 @@ public class Driver {
 			System.out.println("9. Report on reneging [customers]");
 			System.out.println("10. Report on jockeying [customers]");
 			System.out.println("11. Quit");
-			choice = sc.nextInt();
+			int choice = sc.nextInt();
 			switch (choice) {
 			case 1: // Create a [Customer]
-
+				System.out.println("Enter Customer name:");
+				String name = sc.next();
+				Customer c = new Customer(name);
+				server1.enqueue(c);
+				System.out.println(name + " added.");
+				System.out.println(server1.toString()); // Testing
 				break;
 			case 2: // Process a [Customer]
-
+				
 				break;
 			case 3: // Open the second server
 
