@@ -11,9 +11,9 @@ import java.util.Scanner;
 
 public class Driver {
 	/*
-	 * Balk: A customer can decide to not join a queue in the first place Renege: A
-	 * customer can decide to leave the queue without being served Jockey: A
-	 * customer can decide to jump to another server if that server opens.
+	 * Balk: A customer can decide to not join a queue in the first place 
+	 * Renege: A customer can decide to leave the queue without being served
+	 * Jockey: A customer can decide to jump to another server if that server opens.
 	 */
 	
 	/*
@@ -71,26 +71,12 @@ public class Driver {
 				addTime(); // Increment time
 				String added = "null";
 				
+				// BALKING: if (server size > 5) dont add (for both servers)
+				
 				if (server2.getOpen() && c.getCart() <= EXPRESS_CHECKOUT_SIZE) {
-					// Add all current process times in the line
-//					for (Customer add : server2) // For all customers in the Regular
-//						totalProc += add.getProcTime();
-					// Balking
-//					if (c.getWaitTime() > totalProc) {
-//						System.out.println(c.getName() + " did not want to wait in " + server2.getName() + " and was balked.");
-//						break; // End this choice and return to menu
-//					}
 					server2.enqueue(c);
 					added = server2.getName();
 				} else {
-					// Add all current process times in the line
-//					for (Customer add : server1) // For all customers in the Regular
-//						totalProc += add.getProcTime();
-					// Balking
-//					if (c.getWaitTime() > totalProc) {
-//						System.out.println(c.getName() + " did not want to wait in " + server1.getName() + " and was balked.");
-//						break; // End this choice and return to menu
-//					}
 					server1.enqueue(c);
 					added = server1.getName();
 				}
@@ -116,8 +102,7 @@ public class Driver {
 						break; // End this choice (nothing happens)
 				}
 				else if ((server1.getOpen() && !server2.getOpen()) || server2.getWaitTime() == 0) { // 1 open, 2 closed or empty
-//***
-					c = server1.dequeue();
+					c = server1.dequeue(); // ***
 					System.out.println(c.getName() + " has been processed from " + server1.getName());
 					System.out.println(c.toString()); // Print customer removed from Regular checkout
 				}
