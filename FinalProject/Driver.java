@@ -42,7 +42,6 @@ public class Driver {
 
 		Customer c;
 		String name;
-		int totalProc; // Total processing time in a checkout line
 
 		System.out.println("Welcome to the SSM Queue and Server System");
 		System.out.println("Team: Team Geese 2.0");
@@ -127,8 +126,9 @@ public class Driver {
 				
 				break;
 			case 5: // Find q-hat
-				System.out.println("q_hat of " + server1.getName() + ": " + server1.getQ_Hat(time));
-				System.out.println("q_hat of " + server2.getName() + ": " + server2.getQ_Hat(time));
+				// Fix me
+				//System.out.println("q_hat of " + server1.getName() + ": " + server1.getQ_Hat(time));
+				//System.out.println("q_hat of " + server2.getName() + ": " + server2.getQ_Hat(time));
 				break;
 			case 6: // Find u-hat
 				System.out.println("u_hat of " + server1.getName() + ": " + server1.getU_Hat(time));
