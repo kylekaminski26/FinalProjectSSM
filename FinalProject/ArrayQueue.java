@@ -26,32 +26,32 @@ public class ArrayQueue<AnyType> implements QueueADT<AnyType> {
 	}
 
 	public AnyType dequeue() {
-		AnyType e = peek();
-		A[front % cap] = null;
-		front++;
-		size--;
-		return e;
-//		if (size == 0)
-//			return null;
-//		AnyType result = list.get(front);
+//		AnyType e = peek();
+//		A[front % cap] = null;
+//		front++;
 //		size--;
-//		front = (front + 1) % list.size();
-//		return result;
+//		return e;
+		if (size == 0)
+			return null;
+		AnyType result = this.peek();
+		size--;
+		front = (front + 1) % list.size();
+		return result;
 	}
 
 	public void enqueue(AnyType value) {
-		if (isFull())
-			doubleSize();
-		back++;
-		A[back % cap] = value;
-		size++;
-//		if (size == list.size()) { // insert
-//			list.add(back, value);
-//			front = (front + 1) % list.size();
-//		} else
-//			list.set(back, value);
-//		back = (back + 1) % list.size();
+//		if (isFull())
+//			doubleSize();
+//		back++;
+//		A[back % cap] = value;
 //		size++;
+		if (size == list.size()) { // insert
+			list.add(back, value);
+			front = (front + 1) % list.size();
+		} else
+			list.set(back, value);
+		back = (back + 1) % list.size();
+		size++;
 	}
 
 	public AnyType peek() {

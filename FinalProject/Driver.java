@@ -1,5 +1,6 @@
 package FinalProject;
 
+import java.util.Iterator;
 import java.util.Scanner;
 
 /*
@@ -36,6 +37,8 @@ public class Driver {
 
 		Server<Customer> server1 = new Server<Customer>("Regular");
 		Server<Customer> server2 = new Server<Customer>("Express");
+		
+	//	Iterator i1 = server1.iterator(); 
 
 		server1.setOpen(true); // Start the first server open; can take any size cart
 		server2.setOpen(false); // Start the second server closed; counts as the express lane

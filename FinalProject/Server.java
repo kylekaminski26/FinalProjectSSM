@@ -106,5 +106,9 @@ public class Server<Customer> {
 	public String toString() {
 		return "Server [waitTime=" + waitTime + ", ServiceTime=" + ServiceTime + ", busyTime=" + busyTime + ", open="
 				+ open + ", queue=" + queue + "]";
-	}	
+	}
+
+//	public Iterator iterator() {
+//		return new queue.iterator();
+//	}	
 }
