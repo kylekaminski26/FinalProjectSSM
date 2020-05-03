@@ -7,7 +7,7 @@ import java.util.Queue;
 
 public class ArrayQueue<AnyType> implements QueueADT<AnyType> {
 	private static final int DEFAULT_CAPACITY = 10;
-	
+
 	List<AnyType> list;
 	int cap;
 	int size; // size of ArrayQueue itself, NOT the ArrayList list.
@@ -118,63 +118,21 @@ public class ArrayQueue<AnyType> implements QueueADT<AnyType> {
 	private class QueueIterator implements Iterator<AnyType> {
 		private int index; // traversal index
 
-		/**
-		 * Create a new empty iterator.
-		 */
 		public QueueIterator() {
 			index = front;
 		}
 
-		/**
-		 * Tests if there are more items in the Queue
-		 *
-		 */
 		public boolean hasNext() {
 			return index <= back;
 		}
 
-		/**
-		 * Returns the next item in the Queue.
-		 *
-		 */
 		public AnyType next() {
 			return A[(index++) % cap];
 		}
 
-		/**
-		 * Remove is not implemented
-		 *
-		 */
 		public void remove() {
 			throw new java.lang.UnsupportedOperationException();
 		}
-	}
-
-	public static void main(String[] args) {
-		ArrayQueue<String> Q = new ArrayQueue<String>();
-
-		String[] people = { "Tom", "Jay", "Pat", "Meghan", "Tom", "Mark", "Kasey", "John", "Helen" };
-
-		for (int i = 0; i < people.length; i++)
-			Q.enqueue(people[i]);
-
-		for (int i = 0; i < 2; i++)
-			Q.dequeue();
-
-		Iterator itr = Q.iterator();
-		while (itr.hasNext())
-			System.out.println(itr.next());
-
-		System.out.println("=================");
-
-		Q.enqueue("Mike");
-		Q.enqueue("Bev");
-
-		itr = Q.iterator();
-		while (itr.hasNext())
-			System.out.print(itr.next() + " ");
-
-		System.out.println();
 	}
 
 	@Override
