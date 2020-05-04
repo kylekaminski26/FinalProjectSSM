@@ -3,6 +3,7 @@ package FinalProject;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.Random;
+import java.util.Iterator;
 
 /*
  * @author Kyle K, Tim G, Matt K, Victor C
@@ -99,6 +100,26 @@ public class Driver {
 			case 2:    //increment time and update system 
 
                 addTime();
+
+                //Will a Custom Reneg?
+
+                Iterator<Customer> s1 = server1.iterator();
+                Iterator<Customer> s2 = server2.iterator();
+
+                //Will need indexOf in arrayQueue 
+                //should be based on object comparision
+                //so we can know the position of a reneging customer
+                while (s1.hasNext()){
+                    Customer x = (Customer) s1.next(); 
+                }
+
+                
+                while (s2.hasNext()){
+                    Customer x = (Customer) s2.next(); 
+                }
+                                 
+                
+
 
                 //process servers
 

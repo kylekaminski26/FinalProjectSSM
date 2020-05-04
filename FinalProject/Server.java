@@ -95,7 +95,10 @@ public class Server {
     }
 
 
-
+    public Iterator<Customer> iterator()
+    {
+       return queue.iterator();
+    }
 	
 	public String getName() {
 		return name;
