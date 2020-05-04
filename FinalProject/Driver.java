@@ -2,6 +2,7 @@ package FinalProject;
 
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.Random;
 
 /*
  * @author Kyle K, Tim G, Matt K, Victor C
@@ -25,12 +26,11 @@ public class Driver {
 	 */
 	
 	static int time = 0; // Global time keeper
-
 	public static void main(String[] args) {
 		final int EXPRESS_CHECKOUT_SIZE = 5; // Number of items allowed for express checkout
 		boolean run = true;
 		Scanner sc = new Scanner(System.in);
-		
+		Random randy = new Random();
 		Server server1 = new Server("Regular");
 		Server server2 = new Server("Express");
 
@@ -68,19 +68,32 @@ public class Driver {
 				name = sc.next();
 				c = new Customer(name,getTime()); //Matt -K : changed constructor
 				String added = "null";
-				// BALKING: if (server size > 5) dont add (for both servers)
-		        	
 
-                // Server Placement (will they go to express?)	
+                // Server Placement (will they go to express?)
+		// This also includes the statements of whether they balk or not	
 				if (server2.getOpen() && c.getCart() <= EXPRESS_CHECKOUT_SIZE) {
-					server2.enqueue(c);
-					added = server2.getName();
+					//
+					if(server2.getSize() > 5 && randy.nextInt(100) % 10 == 0){
+						System.out.println(c.getName() + " choose to balk.");
+						enterToContinue();
+					}
+					else {
+						server2.enqueue(c);
+						added = server2.getName();
+						System.out.println(c.getName() + " added to " + added + ".");
+					}	
+
 				} else {
-					server1.enqueue(c);
-					added = server1.getName();
-				}
-				
-				System.out.println(c.getName() + " added to " + added + ".");
+					if(server1.getSize() > 5 && randy.nextInt(100) % 10 == 0){
+						System.out.println(c.getName() + " choose to balk.");
+						enterToContinue();
+					}
+					else {
+						server1.enqueue(c);
+						added = server1.getName();
+						System.out.println(c.getName() + " added to " + added + ".");
+					}
+				}				
 				break;
 
 			case 2:    //increment time and update system 

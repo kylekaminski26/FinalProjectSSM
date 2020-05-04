@@ -115,6 +115,10 @@ public class Server {
 		return open;
 	}
 
+	public int getSize() {
+		return queue.size();
+	}
+
     public void setOpen(boolean t){
         open = t;
     }
