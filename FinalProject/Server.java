@@ -1,6 +1,6 @@
 package FinalProject;
-
 import java.util.Iterator;
+import java.util.Random;
 
 public class Server {
 	private String name; // Express or checkout?
@@ -10,6 +10,7 @@ public class Server {
 	private ArrayQueue<Customer> queue;
     private int time;
     private int startProcessTime; //holds the time of the most recent started process
+    private Random randy;
 	// Default constructor. Only called with ServerCreate() class.
 	public Server(String n) {
 		name = n;
@@ -18,6 +19,7 @@ public class Server {
         Q_T_SUM = 0;
         U_N_SUM = 0;
         this.time = 0;
+        this.randy = new Random();
 	}
 	
 	public void enqueue(Customer c) {
@@ -45,6 +47,10 @@ public class Server {
 
     //update the server by 1 time step
     public void update(){
+
+       //reneger?
+       reneg(); 
+
        //update the time
        time++;
 
@@ -113,7 +119,27 @@ public class Server {
         open = t;
     }
 	
+    //douchey customers
 
+
+    //Give the customers in the queue a chance
+    //to reneg
+    public void reneg(){
+    
+       if (queue.size < 2){
+            return;
+       }
+    
+       //every time step the customers in the line will have 
+       //a 2 percent chance of reneging
+       if (randy.nextInt(100) % 10 == 0){ //10% for debug
+            //pick a customer to reneg
+            int douche = randy.nextInt(queue.size()-2);//person being processed should not leave 
+            Customer customer = queue.remove(douche);     
+            System.out.println(customer.getName() + " reneged");   
+            System.out.println(customer.getName() + " reneged");        
+       }  
+    }
 
 	@Override
 	public String toString() {
@@ -137,4 +163,8 @@ public class Server {
 			return 0;
 		return 1;
 	}
+
+
+
+
 }
