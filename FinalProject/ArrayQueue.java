@@ -156,6 +156,18 @@ public class ArrayQueue<AnyType> implements QueueADT<AnyType> {
 	public AnyType getAnyTypeAt(int index){
 		return A[front + index];
 	}
+
+	//Fix ME
+	public int getIndexOf(AnyType value) {
+		int index = 0;
+		for(int i = 0; i < cap; i++)
+		{
+			if(A[(front+i) % cap].equals(value))
+				index = front + i;
+		}
+		return index;
+	}
+
 }
 
 

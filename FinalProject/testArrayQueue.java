@@ -15,6 +15,7 @@ public class testArrayQueue {
 	queue.enqueue(7);
 	queue.enqueue(8);
 	queue.enqueue(9);
+	System.out.println(queue.getIndexOf(5));
         System.out.println("Getting at index 6 (after remove): " + queue.getAnyTypeAt(6));
         System.out.println(queue.toString());
 	queue.remove(5);
