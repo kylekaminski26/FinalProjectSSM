@@ -5,10 +5,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Queue;
 
+//Matt K
+//why is there a list at all?
+//Does the toString() work?
+
+
 public class ArrayQueue<AnyType> implements QueueADT<AnyType> {
 	private static final int DEFAULT_CAPACITY = 10;
 
-	List<AnyType> list;
 	int cap;
 	int size; // size of ArrayQueue itself, NOT the ArrayList list.
 	int front;
@@ -17,7 +21,6 @@ public class ArrayQueue<AnyType> implements QueueADT<AnyType> {
 
 	@SuppressWarnings("unchecked")
 	public ArrayQueue() {
-		list = new ArrayList<AnyType>();
 		cap = DEFAULT_CAPACITY;
 		A = (AnyType[]) new Object[DEFAULT_CAPACITY];
 		back = -1;
@@ -26,17 +29,11 @@ public class ArrayQueue<AnyType> implements QueueADT<AnyType> {
 	}
 
 	public AnyType dequeue() {
-		AnyType e = peek();
+		AnyType e = A[front];
 		A[front % cap] = null;
 		front++;
 		size--;
 		return e;
-//		if (size == 0)
-//			return null;
-//		AnyType result = list.get(front);
-//		size--;
-//		front = (front + 1) % list.size();
-//		return result;
 	}
 
 	public void enqueue(AnyType value) {
@@ -45,20 +42,12 @@ public class ArrayQueue<AnyType> implements QueueADT<AnyType> {
 		back++;
 		A[back % cap] = value;
 		size++;
-        list.add(A[back % cap]);
-//		if (size == list.size()) { // insert
-//			list.add(back, value);
-//			front = (front + 1) % list.size();
-//		} else
-//			list.set(back, value);
-//		back = (back + 1) % list.size();
-//		size++;
 	}
 
 	public AnyType peek() {
 		if (isEmpty())
 			return null;
-		return list.get(front);
+		return A[front];
 	}
 
 	public int size() {
@@ -74,7 +63,7 @@ public class ArrayQueue<AnyType> implements QueueADT<AnyType> {
 	}
 
 	public boolean isEmpty() {
-		return size == 0; // Return isEmpty() for this ArrayQueue, NOT the ArrayList list.
+		return size == 0; // Return isEmpty() for this ArrayQueue, NOT the Array
 	}
 
 	public boolean isFull() {
@@ -91,27 +80,29 @@ public class ArrayQueue<AnyType> implements QueueADT<AnyType> {
 		cap *= 2;
 	}
 
-	@Override
+
+    //@Author: Matt K
+    @Override
 	public String toString() {
 		if (this.isEmpty())
 			return "[]";
-		if (this.size() == 1)
+		else if (this.size() == 1)
 			return "[" + this.peek() + "]";
-		ArrayQueue<AnyType> temp = this;
-		String s = "[" + temp.dequeue();
-  
-		if (temp.front < temp.back) {
-			while (temp.front != temp.back) {
-				s += ", " + temp.dequeue();
-			}
-		} else {
-			while (temp.front != temp.back) {
-				s += ", " + temp.peek();
-				front = (front + 1) % temp.size();
-			}
-		}
-		return s + "]";
+        else {
+            int f = front;
+            int b = back;
+		    String s = "[" + A[f]; 
+			while (f != b) {
+                f = (f + 1) % cap;
+				s += ", " + A[f];
+               
+			}	
+	    	return s + "]";
+
+        }
 	}
+
+
 
 	public Iterator<AnyType> iterator() {
 		return new QueueIterator();
@@ -142,9 +133,26 @@ public class ArrayQueue<AnyType> implements QueueADT<AnyType> {
 		// Use enqueue()
 	}
 
+    /*
+    @Author Matt K
+    removes an element in the queue (not the head)
+    I changed the ADT this would be usefull for renege/balk etc
+    */
 	@Override
-	public AnyType remove() {
-		// use dequeue()
-		return null;
+	public AnyType remove(int r) {
+        //remove the relative index 
+        if (r > cap){
+            return null;
+        }
+        AnyType tmp = A[front + r]; 	
+	    for (int i = 0; i <r; i++ )
+        {    
+            A[(front + r + i) % cap  ]=A[(front + r + i+ 1) %cap];
+        }	
+        back++;
+        return tmp;
 	}
 }
+
+
+
