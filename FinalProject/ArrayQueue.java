@@ -45,6 +45,7 @@ public class ArrayQueue<AnyType> implements QueueADT<AnyType> {
 		back++;
 		A[back % cap] = value;
 		size++;
+        list.add(A[back % cap]);
 //		if (size == list.size()) { // insert
 //			list.add(back, value);
 //			front = (front + 1) % list.size();
@@ -98,6 +99,7 @@ public class ArrayQueue<AnyType> implements QueueADT<AnyType> {
 			return "[" + this.peek() + "]";
 		ArrayQueue<AnyType> temp = this;
 		String s = "[" + temp.dequeue();
+  
 		if (temp.front < temp.back) {
 			while (temp.front != temp.back) {
 				s += ", " + temp.dequeue();
