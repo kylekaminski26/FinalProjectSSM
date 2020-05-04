@@ -5,8 +5,8 @@ public interface QueueADT<E> {
 	/** Add the value at the back of this QueueADT. */
 	void add(E value);
 
-	/** Remove the value at the front of this QueueADT. */
-	E remove();
+	/** Remove the value at some index of this QueueADT. */
+	E remove(int index);
 
 	/** @return value at the front of this QueueADT, or null if empty. */
 	E peek();

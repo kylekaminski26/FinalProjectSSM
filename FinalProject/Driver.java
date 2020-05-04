@@ -1,6 +1,6 @@
 package FinalProject;
 
-import java.util.Iterator;
+import java.io.IOException;
 import java.util.Scanner;
 
 /*
@@ -19,9 +19,6 @@ public class Driver {
 	
 	/*
 	 * ISSUES:
-	 * Iterator needed for ArrayQueue
-	 * dequeue() method returning IndexOutOfBoundsException() (can be tested in option 2)
-	 * ^^^use MyQueueTest.java to test this
 	 * Code for Balk needed
 	 * Code for Renege needed
 	 * Code for Jockey needed
@@ -34,11 +31,8 @@ public class Driver {
 		boolean run = true;
 		Scanner sc = new Scanner(System.in);
 		
-
-		Server<Customer> server1 = new Server<Customer>("Regular");
-		Server<Customer> server2 = new Server<Customer>("Express");
-		
-	//	Iterator i1 = server1.iterator(); 
+		Server server1 = new Server("Regular");
+		Server server2 = new Server("Express");
 
 		server1.setOpen(true); // Start the first server open; can take any size cart
 		server2.setOpen(false); // Start the second server closed; counts as the express lane
@@ -51,9 +45,10 @@ public class Driver {
 		System.out.println("Members: Kyle K, Tim G, Matt K, Victor C\n\n*****");
 
 		do { // Repeating Menu + Selections
+            clearScreen();
 			System.out.println("\nSelect an Option for the System:");
 			System.out.println("1. Create a [Customer]");
-			System.out.println("2. Process a [Customer]");
+			System.out.println("2. Increment Time"); //Process a [Customer]");
 			System.out.println("3. Open the second server");
 			System.out.println("4. Close the second server");
 			System.out.println("5. Find q-hat");
@@ -64,17 +59,19 @@ public class Driver {
 			System.out.println("10. Report on jockeying [customers]");
 			System.out.println("11. Quit");
 			int choice = sc.nextInt();
+
+
 			switch (choice) {
+
 			case 1: // Create a [Customer]
 				System.out.println("Enter Customer name:");
 				name = sc.next();
-				c = new Customer(name);
-				c.setEntryTime(getTime()); // Also qualifies as unique identifier
-				addTime(); // Increment time
+				c = new Customer(name,getTime()); //Matt -K : changed constructor
 				String added = "null";
-				
 				// BALKING: if (server size > 5) dont add (for both servers)
-				
+		        	
+
+                // Server Placement (will they go to express?)	
 				if (server2.getOpen() && c.getCart() <= EXPRESS_CHECKOUT_SIZE) {
 					server2.enqueue(c);
 					added = server2.getName();
@@ -85,62 +82,49 @@ public class Driver {
 				
 				System.out.println(c.getName() + " added to " + added + ".");
 				break;
-			case 2: // Process a [Customer]
-				if (server1.getOpen() && server2.getOpen()) { // Both open
-					System.out.println("Removing from " + server1.getName() + " or " + server2.getName() + "?");
-					choice = sc.nextInt();
-					if (choice == 1) {
-						c = server1.dequeue();
-						System.out.println(c.getName() + " has been processed from " + server1.getName());
-						System.out.println(c.toString()); // Print customer removed from Regular checkout
-					}
-					else if (choice == 2) {
-						c = server2.dequeue();
-						System.out.println(c.getName() + " has been processed from " + server2.getName());
-						System.out.println(c.toString()); // Print customer removed from Express checkout
-					}
-					else
-						System.out.println("Incorrect option. Going back to menu.");
-						break; // End this choice (nothing happens)
-				}
-				else if ((server1.getOpen() && !server2.getOpen()) || server2.getWaitTime() == 0) { // 1 open, 2 closed or empty
-					c = server1.dequeue(); // ***
-					System.out.println(c.getName() + " has been processed from " + server1.getName());
-					System.out.println(c.toString()); // Print customer removed from Regular checkout
-				}
-				else if ((!server1.getOpen() && server2.getOpen()) || server1.getWaitTime() == 0) { // 1 closed or empty, 2 open
-					c = server2.dequeue();
-					System.out.println(c.getName() + " has been processed from " + server2.getName());
-					System.out.println(c.toString()); // Print customer removed from Express checkout
-				}
-				else { // If both are closed and/or empty
-					System.out.print("Cannot process from " + server1.getName() + " or " + server2.getName() + ".");
-					System.out.println(" Going back to menu.");
-				}
-				break;
+
+			case 2:    //increment time and update system 
+
+                addTime();
+
+                //process servers
+
+                server1.update();
+                server2.update();                
+                System.out.print("Time: " + time);
+
+                enterToContinue();
+
+
+                        break;
 			case 3: // Open the second server
 				server2.open();
 				System.out.println(server2.getName() + " is now open.");
+                enterToContinue();
 				break;
 			case 4: // Close the second server
 				server2.close(server1);
 				System.out.println(server2.getName() + " is now closed.");
 				System.out.println("Moving all customers to the end of " + server1.getName());
-				
+			    enterToContinue();	
 				break;
 			case 5: // Find q-hat
-				// Fix me
-				//System.out.println("q_hat of " + server1.getName() + ": " + server1.getQ_Hat(time));
-				//System.out.println("q_hat of " + server2.getName() + ": " + server2.getQ_Hat(time));
+				System.out.println("q_hat of " + server1.getName() + ": " + server1.getQ_Hat(time));
+				System.out.println("q_hat of " + server2.getName() + ": " + server2.getQ_Hat(time));
+                enterToContinue();
 				break;
 			case 6: // Find u-hat
 				System.out.println("u_hat of " + server1.getName() + ": " + server1.getU_Hat(time));
 				System.out.println("u_hat of " + server2.getName() + ": " + server2.getU_Hat(time));
+                enterToContinue();
 				break;
 			case 7: // Find B(t)
 				System.out.println("B(T) of " + server1.getName() + ": " + server1.B_T());
 				System.out.println("B(T) of " + server2.getName() + ": " + server2.B_T());
+                enterToContinue();
 				break;
+
+
 			case 8: // Report on balking [customers]
 
 				break;
@@ -181,4 +165,21 @@ public class Driver {
 //	private static String renege() {
 //		
 //	}
+ 
+   public static void clearScreen() {  
+         System.out.print("\033[H\033[2J");  
+         System.out.flush();  
+    }   
+
+   //halts program execution until an input is given
+   public static void enterToContinue()
+    {
+         try {
+             System.in.read();
+         } catch (IOException e){}
+    } 
+
+
+
+
 }
