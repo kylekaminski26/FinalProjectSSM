@@ -10,8 +10,10 @@ public class testArrayQueue {
         queue.enqueue(2);
         queue.enqueue(3);
         System.out.println(queue.toString());
-        queue.remove(0);
+        queue.remove(2);
         System.out.println(queue.size());
+        System.out.println(queue.toString());
+        queue.dequeue();
         System.out.println(queue.toString());
     }
 }

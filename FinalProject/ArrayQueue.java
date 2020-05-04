@@ -145,11 +145,11 @@ public class ArrayQueue<AnyType> implements QueueADT<AnyType> {
             return null;
         }
         AnyType tmp = A[front + r]; 	
-	    for (int i = 0; i <r; i++ )
+	    for (int i = 0; i <=r; i++ )
         {    
             A[(front + r + i) % cap  ]=A[(front + r + i+ 1) %cap];
         }	
-        back++;
+        back--;
         return tmp;
 	}
 }

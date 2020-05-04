@@ -26,7 +26,7 @@ public class Customer {
         this.name = name;
         this.entryTime = entryTime;
         this.waitTime = 0;
-        this.cart = rand.nextInt(10);
+        this.cart = 1 + rand.nextInt(10);
         this.procTime = 1 + rand.nextInt(cart);
     }
 
